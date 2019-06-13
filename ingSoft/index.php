@@ -39,7 +39,7 @@ body{
     <div class="col-sm-4"> </div>
 <div class="col-md-4">
   
-<h1 class="text-center text-success">Login /Registro</h1>
+<h1 class="text-center text-success">Login / Registro</h1>
 <br/>
 
 <div class="col-sm-12">
