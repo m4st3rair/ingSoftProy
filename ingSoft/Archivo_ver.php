@@ -19,7 +19,7 @@
         <a class="navbar-brand" href="#">GITHUBMexicoEdition</a>
         </div>
         <ul class="nav navbar-nav">
-        <li><a href="#">Inicio</a></li>
+        <li><a href="index.php">Inicio</a></li>
         <li class="active"><a href="archivosPrincipal.php">Archivos</a></li>
         <li><a href="#">Page 2</a></li>
         <li><a href="#">Page 3</a></li>
@@ -57,13 +57,13 @@
         
             <tr>
                 <td>
-                    <input class="btn btn-block" type="button" value="Colavoraciones">
+                    <input class="btn btn-block" type="button" value="Colaboraciones">
                 </td>
             </tr>
         
             <tr>
                 <td>
-                    <input class="btn btn-block" type="button" value="Colavoradores">
+                    <input class="btn btn-block" type="button" value="Colaboradores">
                 </td>
             </tr>
         
@@ -85,11 +85,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <p>
-                    Aqui va el texto del articulo bien shidori
-                    Aqui va el texto del articulo bien shidori
-                    Aqui va el texto del articulo bien shidori
-                    Aqui va el texto del articulo bien shidori
-                    Aqui va el texto del articulo bien shidori
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                     </p>
                 </div>
             </div>
