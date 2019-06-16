@@ -37,7 +37,23 @@
         $res = array();
         while ($columna = mysqli_fetch_array( $resultado )){
             $aux= array();
-        array_push($aux, $columna['idARCH'], $columna['tituloARCH'], $columna['textoARCH'], $columna['fechaInicioARCH'], $columna['descARCH']);
+        array_push($aux, $columna['idARCH'], $columna['tituloARCH'], $columna['textoARCH'], $columna['fechaInicioARCH'], $columna['descARCH'], $columna['id_propietario']);
+            array_push($res, $aux);
+        }
+        mysqli_close( $conexion );
+        return $res[0];
+    
+    }
+    
+    function busqedaDArchivo2($idpropietario){
+        include_once 'conectDB.php';
+        $conexion = conectarDB();
+        $consulta = "SELECT * FROM archivo WHERE id_propietario = '$idpropietario' ORDER BY fechaInicioARCH DESC LIMIT 1";
+	    $resultado = mysqli_query( $conexion, $consulta ) or die ( "Algo ha ido mal en la consulta a la base de datos");
+        $res = array();
+        while ($columna = mysqli_fetch_array( $resultado )){
+            $aux= array();
+        array_push($aux, $columna['idARCH'], $columna['fechaInicioARCH']);
             array_push($res, $aux);
         }
         mysqli_close( $conexion );
@@ -80,6 +96,19 @@
         }
         mysqli_close( $conexion );
     }
+
+    function nuevaHistoria($idColaborador,$textoNuevo, $fechaDeLaHistoria, $estado, $idArchivo){
+        include_once 'conectDB.php';
+        $conexion = conectarDB();
+        $sql = "INSERT INTO historial (id_COMP, txtModifHIST, fechaHIST, estadoHIST, id_Archivo) VALUES ('$idColaborador', '$textoNuevo', '$fechaDeLaHistoria','$estado', '$idArchivo')";
+        if ($conexion->query($sql) === TRUE) {
+        } else {
+            echo "Error: " . $sql . "<br>" . $conexion->error;
+        }
+        mysqli_close( $conexion );
+    }
+
+
     
 
 

@@ -48,7 +48,7 @@
             <tr>
                 <td>
                     <form action="EditarArchivo.php" method="post">
-                        <input type="text" value="<?php echo $_POST['idArch'];?>" name="id_Arch" id="id_Arch">
+                        <input type="text" value="<?php echo $_POST['idArch'];?>" name="id_Arch" id="id_Arch" hidden>
                         <input class="btn btn-block" type="submit" value="Editar">
                     </form>        
                 </td>

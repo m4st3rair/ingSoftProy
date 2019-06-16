@@ -51,7 +51,7 @@
     ?>
     
         <form action="#" method="POST">
-            <input type="text" name="id_archivo" id="id_archivo" value="<?php echo $_POST['id_Arch'];?>">
+                <input type="text" name="id_archivo" id="id_archivo" value="<?php echo $_POST['id_Arch'];?>" hidden>
                 <div class="form-group">
                     <label for="titArch">Titulo del Archivo</label>
                     <input type="input" class="form-control" value="<?php echo $arch[1];?>" id="titArch" name="titArch" readonly>
@@ -65,7 +65,7 @@
                 <label for="contenido">Contenido:</label>
                 <textarea class="form-control" rows="7" id="contenido" name="contenido"> <?php echo $arch[2];?> </textarea>
             </div>
-
+            
             <button type="submit" class="btn btn-default">Guardar</button>
 
         </form>
@@ -78,7 +78,23 @@
     <?php
         if(isset($_POST['contenido'])){
             include_once 'consultas.php';
-            actualizar_Archivo_local($_POST['contenido'], $_POST['id_archivo']);
+            $arch=busqedaDArchivo($_POST['id_archivo']);
+
+            date_default_timezone_set('America/Mexico_City');
+            $fech = date('Y-m-d H:i:s');
+            
+
+            if ($usrS->getidUsr()==$arch[5]) {
+                echo "Son el mismo por lo tanto se aprueba inmediatamente el cambio";    
+                nuevaHistoria($usrS->getidUsr() ,$_POST['contenido'], $fech, 'ACEPTADO', $_POST['id_archivo'] );                
+                actualizar_Archivo_local($_POST['contenido'], $_POST['id_archivo']);
+            }else{
+                
+                echo "El dueño y el Editor no son la misma persona";
+            }
+            
+            
+            
     ?>
     <script>
         alert("Cambios guardados");

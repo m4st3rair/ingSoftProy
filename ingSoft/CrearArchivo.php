@@ -69,6 +69,9 @@
         if(isset($_POST['titArch']) && isset($_POST['descArch']) ){
             include_once 'consultas.php';
             nuevo_Archivo($usrS->getidUsr(), $_POST['titArch'], $_POST['descArch'] , $_POST['contenido']);
+            $archInfo=busqedaDArchivo2($usrS->getidUsr());
+            nuevaHistoria($usrS->getidUsr(),$_POST['contenido'], $archInfo[1], 'ACEPTADO', $archInfo[0]);
+
     ?>
     <script>
         alert("Nuevo archivo agregado");
