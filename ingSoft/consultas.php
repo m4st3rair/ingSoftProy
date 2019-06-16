@@ -70,6 +70,17 @@
         }
         mysqli_close( $conexion );
     }
+    function nuevo_Usuario($nombre, $correo, $pass){
+        include_once 'conectDB.php';
+        $conexion = conectarDB();
+        $sql = "INSERT INTO usuarios (nombreUSR, passUSR, correoUSR) VALUES ('$nombre', '$pass', '$correo')";
+        if ($conexion->query($sql) === TRUE) {
+        } else {
+            echo "Error: " . $sql . "<br>" . $conexion->error;
+        }
+        mysqli_close( $conexion );
+    }
+    
 
 
 ?>

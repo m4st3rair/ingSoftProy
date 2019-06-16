@@ -60,12 +60,12 @@ body{
 
   
   <div class="form-group">
-    <label for="email">Email address:</label>
+    <label for="email">Correo Electronico:</label>
     <input type="email" class="form-control" id="email" name="email">
   </div>
 
   <div class="form-group">
-    <label for="pwd">Password:</label>
+    <label for="pwd">Constraseña:</label>
     <input type="password" class="form-control" id="pwd" name ="pwd">
   </div>
   <p>
@@ -91,29 +91,22 @@ body{
 
     <div id="menu1" class="tab-pane fade">
 
-<form action="#" method="POST">
+<form action="registro.php" method="POST">
 
   <div class="form-group">
     <label for="UserName">Nombre de Usuario:</label>
-    <input type="text" class="form-control" id="email">
+    <input type="text" class="form-control" id="UserName" name="UserName" required>
   </div>
   
   <div class="form-group">
     <label for="email">Correo electronico:</label>
-    <input type="email" class="form-control" id="email">
+    <input type="email" class="form-control" id="email" name="email" required>
   </div>
 
   <div class="form-group">
     <label for="pwd">Contraseña:</label>
-    <input type="password" class="form-control" id="pwd">
+    <input type="password" class="form-control" id="pwd" name="pwd" required>
   </div>
-
-  <div class="form-group">
-    <label for="pwd">Confirma contraseña:</label>
-    <input type="password" class="form-control" id="pwd">
-  </div>
-
-
 
   <button type="submit" class="btn btn-default">Registrar</button>
 
