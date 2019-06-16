@@ -55,7 +55,7 @@ body{
   <div class="tab-content">
     <div id="home" class="tab-pane fade in active">
       
-<form action="#">
+<form action="#" method="POST">
 
 
   
@@ -68,7 +68,13 @@ body{
     <label for="pwd">Password:</label>
     <input type="password" class="form-control" id="pwd" name ="pwd">
   </div>
-
+  <p>
+    <?php
+      if (isset($malCorreo)) {
+        echo $malCorreo;
+      }
+    ?>
+  </p>
 
 
 
@@ -85,7 +91,7 @@ body{
 
     <div id="menu1" class="tab-pane fade">
 
-<form action="#">
+<form action="#" method="POST">
 
   <div class="form-group">
     <label for="UserName">Nombre de Usuario:</label>

@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -13,56 +12,82 @@
 
 </head>
 <body>
+<?php
+  include_once 'sesiones.php';
+  include_once 'consultas.php';
+  $usrS = new UserSession();
+
+?>
     <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-            <a class="navbar-brand" href="#">GITHUBMexicoEdition</a>
-            </div>
-            <ul class="nav navbar-nav">
-            <li><a href="pantallainicio.php">Inicio</a></li>
-            <li class="active"><a href="archivosPrincipal.php">Archivos</a></li>
-            <li><a href="#">Page 2</a></li>
-            <li><a href="#">Page 3</a></li>
-            </ul>
+    <div class="container-fluid">
+        <div class="navbar-header">
+        <a class="navbar-brand" href="#">GITHUBMexicoEdition</a>
         </div>
+        <div class="navbar-header">
+        <a class="navbar-brand" href="#"><?php echo $usrS->getnomUsr(); ?></a>
+        </div>
+
+        <ul class="nav navbar-nav">
+        <li><a href="index.php">Inicio</a></li>
+        <li class="active"><a href="archivosPrincipal.php">Archivos</a></li>
+        <li><a href="ColaborarPrincipal.php">Colaborar</a></li>
+        <li><a href="logout.php">Cerrar sesion</a></li>
+        </ul>
+    </div>
     </nav>
+  <div class="row">
+    <div class="col-sm-12">
+        <input type="button" value="Nuevo Archivo" class="btn btn-block" onclick="abrirNuevoArch()">
+    </div>
+  </div>
+
+
+
+
+
 
 
 
     <div class="row">
         <div class="col-sm-4">
-
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3>Locales</h3>
+                </div>
+            </div>
             <table class="table">
-                <th>
-                    <td colspan="2">
-                        <h3>Locales</h3>
-                    </td>
-                </th>
 
+                <?php
+                    $archivosLocales = consultaArchivosLoc($usrS->getidUsr());
+                    foreach ($archivosLocales as $value) {
+                ?>
+                
                 <tr>
+                    <form method="POST" action="Archivo_ver_local.php">
+                    
                     <td>
-                        <h4>Arch1</h4>
+                        <?php
+                            echo $value[1];                                
+                        ?>
+                        <input type="text" value="<?php echo $value[0];?>" id="idArch" name="idArch" hidden>
                     </td>
                     <td>
-                        <input type="button" value="ver" onclick = "location='Archivo_ver.php'">
+                        <?php
+                            echo $value[2];                                
+                        ?>
                     </td>
+                    <td>
+                        <button type="submit" class="btn btn-default">Ver</button>
+                    </td>
+
+                    </form>
                 </tr>
-                <tr>
-                    <td>
-                        <h4>Arch2</h4>
-                    </td>
-                    <td>
-                        <input type="button" value="ver">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <h4>Arch3</h4>
-                    </td>
-                    <td>
-                        <input type="button" value="ver">
-                    </td>
-                </tr>
+                
+                <?php
+                    }
+
+                ?>
+
             </table>
         
         </div>
@@ -145,6 +170,11 @@
     </div>
 
 
-  
+  <script>
+    function abrirNuevoArch(){
+        //alert("Ya cargo");
+        window.location="CrearArchivo.php";
+    }
+  </script>
 </body>
 </html>
