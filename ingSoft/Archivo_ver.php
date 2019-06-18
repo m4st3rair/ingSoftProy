@@ -78,7 +78,7 @@
                     <h3>Arch1</h3>
                 </div>
                 <div class="col-sm-6">
-                    <h4>Nombre del dueño</h4>
+                    <h4>Nombre del Propietario</h4>
                 </div>
             
             </div>
