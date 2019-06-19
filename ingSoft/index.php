@@ -24,9 +24,9 @@
             
         }
         
-        echo "Hay que validar datos";
+        //echo "Hay que validar datos";
     }else{
-        echo "No esta registrado";
+        //echo "No esta registrado";
         include_once 'loginRegistro.php';
     }
 

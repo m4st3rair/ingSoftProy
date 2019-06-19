@@ -28,22 +28,50 @@
         return $res;
     
     }
-    
-    function busqedaDArchivo($idArch){
+
+    function consultaArchivosComp($idPropietario){
         include_once 'conectDB.php';
         $conexion = conectarDB();
-        $consulta = "SELECT * FROM archivo WHERE idARCH = '$idArch'";
+        $consulta = "SELECT * FROM archivo WHERE id_propietario = '$idPropietario' AND 	tipoARCH = 'COMPARTIDO' ORDER BY fechaInicioARCH DESC ";
 	    $resultado = mysqli_query( $conexion, $consulta ) or die ( "Algo ha ido mal en la consulta a la base de datos");
         $res = array();
         while ($columna = mysqli_fetch_array( $resultado )){
             $aux= array();
-        array_push($aux, $columna['idARCH'], $columna['tituloARCH'], $columna['textoARCH'], $columna['fechaInicioARCH'], $columna['descARCH'], $columna['id_propietario']);
+            array_push($aux, $columna['idARCH'], $columna['tituloARCH'], $columna['descARCH'] );
             array_push($res, $aux);
         }
         mysqli_close( $conexion );
-        return $res[0];
+        return $res;
     
     }
+
+    function consultaArchivosCompAgenos($idPropietario){
+        include_once 'conectDB.php';
+        $conexion = conectarDB();
+        $consulta = "SELECT * FROM `archivo` INNER JOIN `usuarios` ON `id_propietario`= `idUSR` WHERE NOT (`idUSR` = '$idPropietario' ) AND `tipoARCH` = 'COMPARTIDO' ORDER BY fechaInicioARCH DESC ";
+        //idARCH
+        //id_propietario
+        //fechaInicioARCH
+        //textoARCH
+        //tituloARCH
+        //tipoARCH
+        //descARCH
+        //idUSR
+        //nombreUSR
+        //passUSR
+        //correoUSR
+	    $resultado = mysqli_query( $conexion, $consulta ) or die ( "Algo ha ido mal en la consulta a la base de datos");
+        $res = array();
+        while ($columna = mysqli_fetch_array( $resultado )){
+            $aux= array();
+            array_push($aux, $columna['idARCH'], $columna['tituloARCH'], $columna['descARCH'], $columna['nombreUSR'], $columna['correoUSR']);
+            array_push($res, $aux);
+        }
+        mysqli_close( $conexion );
+        return $res;
+    
+    }
+
     
     function busqedaDArchivo2($idpropietario){
         include_once 'conectDB.php';
@@ -86,6 +114,9 @@
         }
         mysqli_close( $conexion );
     }
+
+    
+    
     function nuevo_Usuario($nombre, $correo, $pass){
         include_once 'conectDB.php';
         $conexion = conectarDB();
@@ -96,7 +127,7 @@
         }
         mysqli_close( $conexion );
     }
-
+    
     function nuevaHistoria($idColaborador,$textoNuevo, $fechaDeLaHistoria, $estado, $idArchivo){
         include_once 'conectDB.php';
         $conexion = conectarDB();
@@ -107,7 +138,17 @@
         }
         mysqli_close( $conexion );
     }
-
+    
+    function compartirArchivo($idArch){
+        include_once 'conectDB.php';
+        $conexion = conectarDB();
+        $sql = "UPDATE archivo SET tipoARCH='COMPARTIDO' WHERE idARCH='$idArch' ";
+        if ($conexion->query($sql) === TRUE) {
+        } else {
+            echo "Error: " . $sql . "<br>" . $conexion->error;
+        }
+        mysqli_close( $conexion );
+    }
 
     
 

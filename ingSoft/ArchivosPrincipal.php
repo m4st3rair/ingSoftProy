@@ -91,44 +91,51 @@
             </table>
         
         </div>
-    
+
         <div class="col-sm-4">
-
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3>Compartidos</h3>
+                </div>
+            </div>
             <table class="table">
-                <th>
-                    <td colspan="2">
-                        <h3>Compartidos</h3>
-                    </td>
-                </th>
 
+                <?php
+                    $archivosCompartidos = consultaArchivosComp($usrS->getidUsr());
+                    foreach ($archivosCompartidos as $value) {
+                ?>
+                
                 <tr>
-                    <td>
-                        <h4>Arch1</h4>
-                    </td>
-                    <td>
-                        <input type="button" value="ver" onclick = "location='Archivo_ver.php'">
-                    </td>
+                    <form method="POST" action="#">
+                    
+                        <td>
+                            <?php
+                                echo $value[1];                                
+                            ?>
+                            <input type="text" value="<?php echo $value[0];?>" id="idArch" name="idArch" hidden>
+                        </td>
+                        <td>
+                            <?php
+                                echo $value[2];                                
+                            ?>
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-default">Ver</button>
+                        </td>
+
+                    </form>
                 </tr>
-                <tr>
-                    <td>
-                        <h4>Arch2</h4>
-                    </td>
-                    <td>
-                        <input type="button" value="ver">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <h4>Arch3</h4>
-                    </td>
-                    <td>
-                        <input type="button" value="ver">
-                    </td>
-                </tr>
+                
+                <?php
+                    }
+
+                ?>
+
             </table>
         
         </div>
     
+
         <div class="col-sm-4">
 
             <table class="table">

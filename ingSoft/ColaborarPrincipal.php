@@ -13,19 +13,99 @@
 
 </head>
 <body>
+<?php
+  include_once 'sesiones.php';
+  include_once 'consultas.php';
+  $usrS = new UserSession();
+
+?>
     <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
         <a class="navbar-brand" href="#">GITHUBMexicoEdition</a>
         </div>
+        <div class="navbar-header">
+        <a class="navbar-brand" href="#"><?php echo $usrS->getnomUsr(); ?></a>
+        </div>
+
         <ul class="nav navbar-nav">
-        <li ><a href="#">Inicio</a></li>
+        <li><a href="index.php">Inicio</a></li>
         <li><a href="archivosPrincipal.php">Archivos</a></li>
-        <li class="active"><a href="Colaborarprincipal">Colaborar</a></li>
-        <li><a href="#">Page 3</a></li>
+        <li class="active"><a href="ColaborarPrincipal.php">Colaborar</a></li>
+        <li><a href="logout.php">Cerrar sesion</a></li>
         </ul>
     </div>
     </nav>
+
+    <div class="col-sm-8">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3>Compartidos</h3>
+                </div>
+            </div>
+            <table class="table">
+            <tr>
+                <th>
+                    Nombre del archivo
+                </th>
+                <th>
+                    Descripción
+                </th>
+                <th>
+                    Dueño
+                </th>
+                <th>
+                    Colaborar
+                </th>    
+            </tr>
+
+                <?php
+                    $archivosCompartidos = consultaArchivosCompAgenos($usrS->getidUsr());
+                    foreach ($archivosCompartidos as $value) {
+//0 idARCH
+//1 tituloARCH
+//2 descARCH
+//3 nombreUSR
+//4 correoUSR
+                ?>
+                
+                <tr>
+                    <form method="POST" action="#">
+                    
+                        <td>
+                            <?php
+                                echo $value[1];                                
+                            ?>
+                            <input type="text" value="<?php echo $value[0];?>" id="idArch" name="idArch" hidden>
+                        </td>
+                        <td>
+                            <?php
+                                echo $value[2];                                
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                                echo $value[4];                                
+                            ?>
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-default">Colaborar</button>
+                        </td>
+
+                    </form>
+                </tr>
+                
+                <?php
+                    }
+
+                ?>
+
+            </table>
+        
+        </div>
+
+
+
     <div class="row">
     <div class="col-sm-8">
         <table class="table">
