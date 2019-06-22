@@ -70,13 +70,14 @@
                 ?>
                 
                 <tr>
-                    <form method="POST" action="#">
+                    <form method="POST" action="solicitudDeColaboracion.php">
                     
                         <td>
                             <?php
                                 echo $value[1];                                
                             ?>
-                            <input type="text" value="<?php echo $value[0];?>" id="idArch" name="idArch" hidden>
+                            <input type="text" value="<?php echo $value[0];?>" id="idArch" name="idArch" >
+                            <input type="text" value="<?php echo $usrS->getidUsr()?>" id="solicitante" name="solicitante">
                         </td>
                         <td>
                             <?php
