@@ -44,20 +44,20 @@
                 </div>
             </div>
             <table class="table">
-            <tr>
-                <th>
-                    Nombre del archivo
-                </th>
-                <th>
-                    Descripción
-                </th>
-                <th>
-                    Dueño
-                </th>
-                <th>
-                    Colaborar
-                </th>    
-            </tr>
+                <tr>
+                    <th>
+                        Nombre del archivo
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                    <th>
+                        Propietario
+                    </th>
+                    <th>
+                        Colaborar
+                    </th>    
+                </tr>
 
                 <?php
                     $archivosCompartidos = consultaArchivosCompAgenos($usrS->getidUsr());
@@ -76,8 +76,8 @@
                             <?php
                                 echo $value[1];                                
                             ?>
-                            <input type="text" value="<?php echo $value[0];?>" id="idArch" name="idArch" >
-                            <input type="text" value="<?php echo $usrS->getidUsr()?>" id="solicitante" name="solicitante">
+                            <input hidden type="text" value="<?php echo $value[0];?>" id="idArch" name="idArch" >
+                            <input hidden type="text" value="<?php echo $usrS->getidUsr()?>" id="solicitante" name="solicitante">
                         </td>
                         <td>
                             <?php
@@ -104,82 +104,6 @@
             </table>
         
         </div>
-
-
-
-    <div class="row">
-    <div class="col-sm-8">
-        <table class="table">
-            <tr>
-                <th>
-                    Nombre del archivo
-                </th>
-                <th>
-                    Descripción
-                </th>
-                <th>
-                    Dueño
-                </th>
-                <th>
-                    Colaborar
-                </th>
-
-                
-            </tr>
-            <tr>
-                <td>
-                   Archivo 1
-                </td>
-                <td>
-                    Es un archivo de prueba
-                </td>
-                <td>
-                    SergioBailador@gmail.com
-                </td>
-                <td>
-                    <input type="button" value="colaborar">
-                </td>
-
-
-            </tr>
-        
-            <tr>
-                <td>
-                   Archivo 2
-                </td>
-                <td>
-                    Es el segundo archivo de prueba
-                </td>
-                <td>
-                    SergioBailador@gmail.com
-                </td>
-                <td>
-                    <input type="button" value="colaborar">
-                </td>
-
-
-            </tr>
-        
-            <tr>
-                <td>
-                   Archivo 3
-                </td>
-                <td>
-                    Es un archivo de prueba para bailarines como el dueño
-                </td>
-                <td>
-                    SergioBailador@gmail.com
-                </td>
-                <td>
-                    <input type="button" value="colaborar">
-                </td>
-
-
-            </tr>
-        
-        </table>
-    
-    </div>
     </div>
 
   

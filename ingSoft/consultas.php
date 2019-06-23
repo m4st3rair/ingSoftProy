@@ -171,12 +171,10 @@
     }
 
 
-    function nuevaPeticionColaborador(){
-
-
+    function nuevaPeticionColaborador($idArch, $idColab){
         include_once 'conectDB.php';
         $conexion = conectarDB();
-        $sql = "INSERT INTO historial (id_COMP, txtModifHIST, fechaHIST, estadoHIST, id_Archivo) VALUES ('$idColaborador', '$textoNuevo', '$fechaDeLaHistoria','$estado', '$idArchivo')";
+        $sql = "INSERT INTO colaboradores (idSolicitante, idARCH, estadoCOLAB) VALUES ('$idColab', '$idArch', 'ESPERA')";
         if ($conexion->query($sql) === TRUE) {
         } else {
             echo "Error: " . $sql . "<br>" . $conexion->error;
@@ -186,22 +184,50 @@
     
 
 
-    function ComprobarQueNoHayaPeticionesRepetidas($idPropietario){
+    function ComprobarQueNoHayaPeticionesRepetidas($idArch, $idColab){
         include_once 'conectDB.php';
         $conexion = conectarDB();
-        $consulta = "SELECT * FROM archivo WHERE id_propietario = '$idPropietario' AND 	tipoARCH = 'COMPARTIDO' ORDER BY fechaInicioARCH DESC ";
+        $consulta = "SELECT * FROM `colaboradores` where idSolicitante='$idColab' AND idARCH = '$idArch'";
+	    $resultado = mysqli_query( $conexion, $consulta ) or die ( "Algo ha ido mal en la consulta a la base de datos");
+        $res = array();
+        while ($columna = mysqli_fetch_array( $resultado )){
+            array_push($res, $columna['estadoCOLAB']);
+        }
+        mysqli_close( $conexion );
+        return $res;    
+    }
+
+    function checarSolicitudes($idPropietario){
+        include_once 'conectDB.php';
+        $conexion = conectarDB();
+        $consulta = "SELECT * FROM colaboradores INNER JOIN archivo on colaboradores.idARCH = archivo.idARCH LEFT JOIN usuarios ON colaboradores.idSolicitante = usuarios.idUSR WHERE archivo.id_propietario = '$idPropietario' AND colaboradores.estadoCOLAB='ESPERA'";
+        //idCOLAB
+        //idSolicitante
+        //idARCH
+        //estadoCOLAB
+        //idARCH
+        //id_propietario
+        //fechaInicioARCH
+        //textoARCH
+        //tituloARCH
+        //tipoARCH
+        //descARCH
+        //idUSR
+        //nombreUSR
+        //passUSR
+        //correoUSR
 	    $resultado = mysqli_query( $conexion, $consulta ) or die ( "Algo ha ido mal en la consulta a la base de datos");
         $res = array();
         while ($columna = mysqli_fetch_array( $resultado )){
             $aux= array();
-            array_push($aux, $columna['idARCH'], $columna['tituloARCH'], $columna['descARCH'] );
+            array_push($aux, $columna['idCOLAB'], $columna['tituloARCH'], $columna['descARCH'], $columna['correoUSR']);
             array_push($res, $aux);
         }
         mysqli_close( $conexion );
-        return $res;
-    
+        return $res;    
     }
     
+
 
 
 ?>

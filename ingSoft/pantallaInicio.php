@@ -35,6 +35,50 @@
         </ul>
     </div>
     </nav>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <h4>Solicitudes de Colaboración</h4>
+        <table class="table">
+          <tr>
+            <th>Solicitante</th>
+            <th>Nombre del Archivo</th>
+            <th>Descripcion del Archivo</th>
+            <th>Solicitud </th>
+          </tr>
+          <?php
+            include_once 'consultas.php';
+            $solicitudes = checarSolicitudes($usrS->getidUsr());
+//0 idCOLAB
+//1 tituloARCH
+//2 descARCH
+//3 correoUSR
+            foreach ($solicitudes as $key) {
+              
+              ?>
+  
+          <tr>
+            <td><?php echo $key[3];?></td>
+            <td><?php echo $key[1];?></td>
+            <td><?php echo $key[2];?></td>
+            <td>
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <button type="button" class="btn btn-secondary">Rechazar</button>
+              <button type="button" class="btn btn-secondary">Aceptar(Editor)</button>
+              <button type="button" class="btn btn-secondary">Aceptar(Solo Lectura)</button>
+            </div>
+            
+            </td>          
+          </tr>
+<?php
+  }
+
+?>
+
+
+        </table>
+      </div>
+    </div>
   
 </body>
 </html>
