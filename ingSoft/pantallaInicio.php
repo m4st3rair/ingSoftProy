@@ -65,20 +65,20 @@
 
             <div class="btn-group" role="group" aria-label="Basic example">
               <form action="respuestaSolicitudes.php" method="POST">
-                <input type="text" value="<?php echo $key[0];?>" name="id_Colaboracion" id="id_Colaboracion">
-                <input type="text" value="RECHAZADO" name="valor" id="valor">                
+                <input hidden type="text" value="<?php echo $key[0];?>" name="id_Colaboracion" id="id_Colaboracion">
+                <input hidden type="text" value="RECHAZADO" name="valor" id="valor">                
                 <button type="submit" class="btn btn-secondary">Rechazar</button>
               </form>
               <form action="respuestaSolicitudes.php" method="POST">
-                <input type="text" value="<?php echo $key[0];?>" name="id_Colaboracion" id="id_Colaboracion">
-                <input type="text" value="SOLO LECTURA" name="valor" id="valor">
+                <input hidden type="text" value="<?php echo $key[0];?>" name="id_Colaboracion" id="id_Colaboracion">
+                <input hidden type="text" value="SOLO LECTURA" name="valor" id="valor">
                 
                 <button type="submit" class="btn btn-secondary">Aceptar(Solo Lectura)</button>
               </form>
 
               <form action="respuestaSolicitudes.php" method="POST">
-                <input type="text" value="<?php echo $key[0];?>" name="id_Colaboracion" id="id_Colaboracion">
-                <input type="text" value="EDITOR" name="valor" id="valor">
+                <input hidden type="text" value="<?php echo $key[0];?>" name="id_Colaboracion" id="id_Colaboracion">
+                <input hidden type="text" value="EDITOR" name="valor" id="valor">
                 
                 <button type="submit" class="btn btn-secondary">Aceptar(Editor)</button>
               </form>
@@ -164,18 +164,18 @@
             <tr>
               <td>
                 <form action="actualizarHist.php" method="POST">
-                  <input type="text" name="idHist" value="<?php echo $key[0];?>" id="idHist">
-                  <input type="text" name="textoMofi" value="<?php echo $key[5];?>" id="textoMofi">
-                  <input type="text" name="idArch" value="<?php echo $key[1];?>" id="idArch">
-                  <input type="text" name="estadoHist" value="ACEPTADO" id="estadoHist">
+                  <input hidden type="text" name="idHist" value="<?php echo $key[0];?>" id="idHist">
+                  <input hidden type="text" name="textoMofi" value="<?php echo $key[5];?>" id="textoMofi">
+                  <input hidden type="text" name="idArch" value="<?php echo $key[1];?>" id="idArch">
+                  <input hidden type="text" name="estadoHist" value="ACEPTADO" id="estadoHist">
                   <button type="submit" class="btn">Aprovar</button>
                 </form>
               </td>
               <td>
                 <form action="actualizarHist.php" method="POST">
-                  <input type="text" name="idHist" value="<?php echo $key[0];?>" id="idHist">
-                  <input type="text" name="textoMofi" value="<?php echo $key[5];?>" id="textoMofi">
-                  <input type="text" name="estadoHist" value="REACHAZADO" id="estadoHist">
+                  <input hidden type="text" name="idHist" value="<?php echo $key[0];?>" id="idHist">
+                  <input hidden type="text" name="textoMofi" value="<?php echo $key[5];?>" id="textoMofi">
+                  <input hidden type="text" name="estadoHist" value="REACHAZADO" id="estadoHist">
                   <button type="submit" class="btn">Rechazar</button>
                 </form>
               </td>
