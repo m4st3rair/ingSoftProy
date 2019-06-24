@@ -1,4 +1,19 @@
 <?php
+
+    function actualizar_Historial($estado, $idHist){
+        include_once 'conectDB.php';
+        $conexion = conectarDB();
+        $sql = "UPDATE historial SET estadoHIST='$estado' WHERE idHIST='$idHist' ";
+        if ($conexion->query($sql) === TRUE) {
+        } else {
+            echo "Error: " . $sql . "<br>" . $conexion->error;
+        }
+        mysqli_close( $conexion );
+    }
+
+
+
+
     function validarCuenta($pwd, $email){
         include_once 'conectDB.php';
         $conexion = conectarDB();
@@ -13,6 +28,100 @@
     
     }
     
+    function consultaHistorialPendiente($idARCH, $idUSR){
+
+        include_once 'conectDB.php';
+        $conexion = conectarDB();
+        $consulta = "SELECT * FROM historial
+        WHERE id_Archivo='$idARCH' AND estadoHIST =  'PENDIENTE' AND id_COMP = '$idUSR';";
+
+	    $resultado = mysqli_query( $conexion, $consulta ) or die ( "Algo ha ido mal en la consulta a la base de datos");
+        $res = array();
+        while ($columna = mysqli_fetch_array( $resultado )){
+            $aux= array();
+            array_push($aux, $columna['	idHIST']);
+            array_push($res, $aux);
+        }
+        mysqli_close( $conexion );
+        return $res;
+    
+    }
+   
+    function getNotificacionesCambiosaArchivos($idUSR){
+
+        include_once 'conectDB.php';
+        $conexion = conectarDB();
+        $consulta = "SELECT * FROM historial INNER JOIN archivo ON historial.id_Archivo = archivo.idARCH INNER JOIN usuarios ON historial.id_COMP = usuarios.idUSR 
+        WHERE archivo.id_propietario='$idUSR' AND estadoHIST = 'PENDIENTE';";
+        
+// idHIST
+// id_COMP
+// txtModifHIST
+// estadoHIST
+// fechaHIST
+// id_Archivo
+// idARCH
+// id_propietario
+// fechaInicioARCH
+// textoARCH
+// tituloARCH
+// tipoARCH
+// descARCH
+// idUSR
+// nombreUSR
+// passUSR	
+// correoUSR	
+
+	    $resultado = mysqli_query( $conexion, $consulta ) or die ( "Algo ha ido mal en la consulta a la base de datos");
+        $res = array();
+        while ($columna = mysqli_fetch_array( $resultado )){
+            $aux= array();
+            array_push($aux, $columna['idHIST'], $columna['idARCH'], $columna['tituloARCH'], $columna['descARCH'], $columna['correoUSR'], $columna['txtModifHIST']);
+            array_push($res, $aux);
+        }
+        mysqli_close( $conexion );
+        return $res;
+    
+    }
+    function consultaHistorialArchivo($idARCH){
+
+        include_once 'conectDB.php';
+        $conexion = conectarDB();
+        $consulta = "SELECT * 
+        FROM historial INNER JOIN usuarios on historial.id_COMP = usuarios.idUSR 
+        INNER JOIN archivo on historial.id_Archivo = archivo.idARCH 
+        WHERE historial.id_Archivo='$idARCH' AND historial.estadoHIST = 'ACEPTADO' ORDER BY fechaHIST DESC;";
+        
+// idHIST
+// id_COMP
+// txtModifHIST
+// estadoHIST
+// fechaHIST
+// id_Archivo
+// idARCH
+// id_propietario
+// fechaInicioARCH
+// textoARCH
+// tituloARCH
+// tipoARCH
+// descARCH
+// idUSR
+// nombreUSR
+// passUSR	
+// correoUSR	
+
+	    $resultado = mysqli_query( $conexion, $consulta ) or die ( "Algo ha ido mal en la consulta a la base de datos");
+        $res = array();
+        while ($columna = mysqli_fetch_array( $resultado )){
+            $aux= array();
+            array_push($aux, $columna['txtModifHIST'], $columna['fechaHIST'], $columna['tituloARCH'], $columna['correoUSR']);
+            array_push($res, $aux);
+        }
+        mysqli_close( $conexion );
+        return $res;
+    
+    }
+
     function consultaArchivosLoc($idPropietario){
         include_once 'conectDB.php';
         $conexion = conectarDB();
@@ -22,6 +131,38 @@
         while ($columna = mysqli_fetch_array( $resultado )){
             $aux= array();
             array_push($aux, $columna['idARCH'], $columna['tituloARCH'], $columna['descARCH'] );
+            array_push($res, $aux);
+        }
+        mysqli_close( $conexion );
+        return $res;
+    
+    }
+
+    function consultaArchivosColaborando($IDcolacorador){
+        include_once 'conectDB.php';
+        $conexion = conectarDB();
+        $consulta = "SELECT * FROM colaboradores
+        INNER JOIN  archivo on colaboradores.idARCH = archivo.idARCH
+        WHERE colaboradores.idSolicitante='$IDcolacorador' AND (colaboradores.estadoCOLAB='SOLO LECTURA' OR colaboradores.estadoCOLAB='EDITOR')
+        ORDER BY fechaInicioARCH DESC";
+        
+//0 idCOLAB
+//1 idSolicitante
+//2 idARCH
+//3 estadoCOLAB
+//4 idARCH
+//5 id_propietario
+//6 fechaInicioARCH
+//7 textoARCH
+//8 tituloARCH
+//9 tipoARCH
+//10 descARCH
+        
+	    $resultado = mysqli_query( $conexion, $consulta ) or die ( "Algo ha ido mal en la consulta a la base de datos");
+        $res = array();
+        while ($columna = mysqli_fetch_array( $resultado )){
+            $aux= array();
+            array_push($aux, $columna['idARCH'], $columna['tituloARCH'], $columna['descARCH'], $columna['estadoCOLAB']);
             array_push($res, $aux);
         }
         mysqli_close( $conexion );
@@ -44,6 +185,36 @@
         return $res;
     
     }
+    function consultaColaboradoresDArchivo($idArchivo){
+        include_once 'conectDB.php';
+        $conexion = conectarDB();
+        $consulta = "SELECT * FROM `colaboradores` 
+        INNER JOIN usuarios on colaboradores.idSolicitante=usuarios.idUSR
+        WHERE idARCH='$idArchivo' AND NOT(colaboradores.estadoCOLAB='RECHAZADO') AND NOT(colaboradores.estadoCOLAB='ESPERA')
+        ORDER BY usuarios.correoUSR";
+    
+// idCOLAB
+// idSolicitante
+// idARCH
+// estadoCOLAB
+// idUSR
+// nombreUSR
+// passUSR
+// correoUSR 
+    
+    $resultado = mysqli_query( $conexion, $consulta ) or die ( "Algo ha ido mal en la consulta a la base de datos");
+        $res = array();
+        while ($columna = mysqli_fetch_array( $resultado )){
+            $aux= array();
+            array_push($aux, $columna['idARCH'], $columna['estadoCOLAB'], $columna['correoUSR'] );
+            array_push($res, $aux);
+        }
+        mysqli_close( $conexion );
+        return $res;
+    
+    }
+
+    
 
     function consultaArchivosCompAgenos($idPropietario){
         include_once 'conectDB.php';
@@ -227,6 +398,19 @@
         return $res;    
     }
     
+    function respuestaSolicitud($respuesta, $idColab){
+        date_default_timezone_set('America/Mexico_City');
+        $fech = date('Y-m-d H:i:s');
+        include_once 'conectDB.php';
+        $conexion = conectarDB();
+        $sql = "UPDATE colaboradores SET estadoCOLAB='$respuesta' WHERE idCOLAB='$idColab' ";
+        if ($conexion->query($sql) === TRUE) {
+        } else {
+            echo "Error: " . $sql . "<br>" . $conexion->error;
+        }
+        mysqli_close( $conexion );
+    }
+
 
 
 

@@ -106,7 +106,7 @@
                 ?>
                 
                 <tr>
-                    <form method="POST" action="#">
+                    <form method="POST" action="Archivo_ver_compartido.php">
                     
                         <td>
                             <?php
@@ -135,47 +135,54 @@
         
         </div>
     
-
         <div class="col-sm-4">
-
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3>Colaborando</h3>
+                </div>
+            </div>
             <table class="table">
-                <th>
-                    <td colspan="2">
-                        <h3>Colaborando</h3>
-                    </td>
-                </th>
 
+                <?php
+                    $archivosCompartidos = consultaArchivosColaborando($usrS->getidUsr());
+//0 idARCH
+//1 tituloARCH
+//2 descARCH
+//3 estadoCOLAB
+                    foreach ($archivosCompartidos as $value) {
+                ?>
+                
                 <tr>
-                    <td>
-                        <h4>Arch1</h4>
-                    </td>
-                    <td>
-                        <input type="button" value="ver" onclick = "location='Archivo_ver.php'">
-                    </td>
+                    <form method="POST" action="Archivo_ver_colaborando.php">
+                    
+                        <td>
+                            <?php
+                                echo $value[1];                                
+                            ?>
+                            <input type="text" value="<?php echo $value[0];?>" id="idArch" name="idArch" hidden>
+                            <input type="text" value="<?php echo $value[3];?>" id="estadoCOLAB" name="estadoCOLAB" hidden>
+                        </td>
+                        <td>
+                            <?php
+                                echo $value[2];                                
+                            ?>
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-default">Ver</button>
+                        </td>
+
+                    </form>
                 </tr>
-                <tr>
-                    <td>
-                        <h4>Arch2</h4>
-                    </td>
-                    <td>
-                        <input type="button" value="ver">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <h4>Arch3</h4>
-                    </td>
-                    <td>
-                        <input type="button" value="ver">
-                    </td>
-                </tr>
+                
+                <?php
+                    }
+
+                ?>
+
             </table>
         
         </div>
     
-    
-    </div>
-
 
   <script>
     function abrirNuevoArch(){

@@ -13,7 +13,12 @@
     <body>
     <?php
         include_once 'sesiones.php';
+        include_once 'consultas.php';
+        
         $usrS = new UserSession();
+        
+
+
 
     ?>
 
@@ -46,8 +51,19 @@
     </div>
     <?php
         if (isset($_POST['id_Arch'])) {
-            include_once 'consultas.php';
             $arch=busqedaDArchivo($_POST['id_Arch']);
+
+            $historiales = consultaHistorialPendiente($_POST['id_Arch'], $usrS->getidUsr());
+            if (sizeof($historiales)!=0) {
+        ?>
+                <script>
+                    alert("Primero debe ser evaluado por el propietario del archivo la ultima modificacion hecha");
+                    window.location = "ArchivosPrincipal.php";
+                </script>
+        <?php
+            }
+    
+            
     ?>
     
         <form action="#" method="POST">
@@ -86,13 +102,11 @@
 
             if ($usrS->getidUsr()==$arch[5]) {
                 echo "Son el mismo por lo tanto se aprueba inmediatamente el cambio";    
-                nuevaHistoria($usrS->getidUsr() ,$_POST['contenido'], $fech, 'ACEPTADO', $_POST['id_archivo'] );                
-                actualizar_Archivo_local($_POST['contenido'], $_POST['id_archivo']);
             }else{
-                
+                nuevaHistoria($usrS->getidUsr() ,$_POST['contenido'], $fech, 'PENDIENTE', $_POST['id_archivo'] );
+                //actualizar_Archivo_local($_POST['contenido'], $_POST['id_archivo']);
                 echo "El dueño y el Editor no son la misma persona";
                 
-                //notificarle al dueño del cambio que se hizo al archivo
             
             }
             

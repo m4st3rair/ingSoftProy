@@ -62,6 +62,12 @@
         
             <tr>
                 <td>
+                    <?php
+// 0                   txtModifHIST
+//  1                  fechaHIST
+//   2                 tituloARCH
+//    3                correoUSR
+                    ?>
                     <input class="btn btn-block" type="submit" value="Historial">
                 </td>
             </tr>
