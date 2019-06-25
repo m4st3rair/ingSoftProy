@@ -8,7 +8,7 @@
     $usrS = new UserSession();
 
     if (isset($_SESSION['email'])) {
-        echo "hay session";
+        //echo "hay session";
         include_once 'pantallaInicio.php';
 
     }else if (isset($_POST['pwd']) && isset($_POST['email'])) {

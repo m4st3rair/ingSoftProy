@@ -412,6 +412,22 @@
     }
 
 
+    function EliminarArchivo($idarchivo){
+
+        include_once 'conectDB.php';
+        $conexion = conectarDB();
+        // sql to delete a record
+        $sql = "DELETE FROM archivo WHERE archivo.idARCH = '$idarchivo'";
+
+        if ($conexion->query($sql) === TRUE) {
+            echo "Record deleted successfully";
+        } else {
+            echo "Error deleting record: " . $conexion->error;
+        }
+
+        $conexion->close();
+    }
+
 
 
 ?>

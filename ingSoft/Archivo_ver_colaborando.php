@@ -55,7 +55,79 @@
             </tr>
             <tr>
                 <td>
-                    <input class="btn btn-block" type="submit" value="Historial">
+                <?php                
+$historial = consultaHistorialArchivo($_POST['idArch']);
+
+//0 txtModifHIST
+//1 fechaHIST
+//2 tituloARCH
+//3 correoUSR
+
+?>
+    <button type="button" class="btn btn-block" data-toggle="modal" data-target="#myModalH">Historial</button>
+
+    <!-- The Modal -->
+    <div class="modal fade" id="myModalH">
+        <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+        
+            <!-- Modal Header -->
+            <div class="modal-header">
+            <h4 class="modal-title"><?php echo $arch[1];?></h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body">
+            <table class="table">
+                <tr>
+                    <th>
+                        Fecha de modificación
+                    </th>
+                    <th>
+                        Colaborador
+                    </th>
+                    <th>
+                        Texto Modificado
+                    </th>
+                </tr>
+                <?php
+                    foreach ($historial as $key ) {
+                ?>
+                    <tr>
+                        <td>
+                            <?php 
+                                $date = date_create($key[1]);
+                            echo date_format($date, 'Y-m-d H:i:s');?>
+                        </td>
+                    
+                        <td>
+                            <?php echo $key[3];?>
+                        </td>
+                    
+                        <td>
+                            <?php echo $key[0];?>
+                        </td>
+                    
+                    </tr>
+                
+                <?php        
+                    }
+                ?>
+            </table>
+            
+
+
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+            
+        </div>
+        </div>
+    </div>
                 </td>
             </tr>
         </table>
