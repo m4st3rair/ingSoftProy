@@ -34,7 +34,7 @@ body{
 <body>
 <style type="text/css">
   body{
-    background-image: url(https://wallpapercave.com/wp/wp1918888.jpg);
+    background-image: url(https://images8.alphacoders.com/687/687394.png);
     font: 180% sans-serif;
   }
 </style>
@@ -116,7 +116,6 @@ body{
 
   <button type="submit" class="btn btn-default">Registrar</button>
 
-  <button type="submit" class=" pull-right btn-link btn-long"><a href="www.google.com">Olvidaste tu contraseña?</a></button>
 
 </form>
 <br/>
