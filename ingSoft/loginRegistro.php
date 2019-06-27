@@ -32,6 +32,12 @@ body{
 
 </head>
 <body>
+<style type="text/css">
+  body{
+    background-image: url(https://wallpapercave.com/wp/wp1918888.jpg);
+    font: 180% sans-serif;
+  }
+</style>
 
 <!-- if you want to create login page and register page together in one page ...you have to only chnage his name...that's it...                 -->
 <div class="container" style="margin-top: 5%;">
@@ -80,7 +86,7 @@ body{
 
 
   <button type="submit" class="btn btn-default">Ingresar</button>
-  <button type="submit" class=" pull-right btn-link"><a href="www.google.com">Olvidaste tu contraseña?</a></button>
+  <button type="submit" class=" pull-right btn-link"><a href="www.google.com"></a></button>
 
 </form>
 <br/>

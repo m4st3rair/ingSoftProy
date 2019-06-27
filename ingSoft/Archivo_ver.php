@@ -13,6 +13,12 @@
 
 </head>
 <body>
+<style type="text/css">
+  body{
+    background-image: url(https://wallpapercave.com/wp/wp1918888.jpg);
+    font: 180% sans-serif;
+  }
+</style>
     <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">

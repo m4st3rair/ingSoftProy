@@ -13,6 +13,12 @@
 
 </head>
 <body>
+<style type="text/css">
+  body{
+    background-image: url(https://wallpapercave.com/wp/wp1918888.jpg);
+    font: 180% sans-serif;
+  }
+</style>
 <?php
   include_once 'sesiones.php';
   //$usrS = new UserSession();
@@ -168,7 +174,7 @@
                   <input hidden type="text" name="textoMofi" value="<?php echo $key[5];?>" id="textoMofi">
                   <input hidden type="text" name="idArch" value="<?php echo $key[1];?>" id="idArch">
                   <input hidden type="text" name="estadoHist" value="ACEPTADO" id="estadoHist">
-                  <button type="submit" class="btn">Aprovar</button>
+                  <button type="submit" class="btn">Aceptar</button>
                 </form>
               </td>
               <td>

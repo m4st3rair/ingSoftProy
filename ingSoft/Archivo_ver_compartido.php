@@ -13,6 +13,12 @@
 
 </head>
 <body>
+<style type="text/css">
+  body{
+    background-image: url(https://wallpapercave.com/wp/wp1918888.jpg);
+    font: 180% sans-serif;
+  }
+</style>
     <?php
         include_once 'sesiones.php';
         $usrS = new UserSession();
