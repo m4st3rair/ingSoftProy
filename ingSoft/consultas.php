@@ -125,7 +125,7 @@
     function consultaArchivosLoc($idPropietario){
         include_once 'conectDB.php';
         $conexion = conectarDB();
-        $consulta = "SELECT * FROM archivo WHERE id_propietario = '$idPropietario' AND 	tipoARCH='LOCAL' ORDER BY fechaInicioARCH DESC ";
+        $consulta = "SELECT * FROM archivo WHERE id_propietario = '$idPropietario' AND 	tipoARCH='LOCAL' AND (NOT culminado = '1') ORDER BY fechaInicioARCH DESC ";
 	    $resultado = mysqli_query( $conexion, $consulta ) or die ( "Algo ha ido mal en la consulta a la base de datos");
         $res = array();
         while ($columna = mysqli_fetch_array( $resultado )){
@@ -173,7 +173,7 @@
     function consultaArchivosComp($idPropietario){
         include_once 'conectDB.php';
         $conexion = conectarDB();
-        $consulta = "SELECT * FROM archivo WHERE id_propietario = '$idPropietario' AND 	tipoARCH = 'COMPARTIDO' ORDER BY fechaInicioARCH DESC ";
+        $consulta = "SELECT * FROM archivo WHERE id_propietario = '$idPropietario' AND 	tipoARCH = 'COMPARTIDO' AND (NOT culminado = '1') ORDER BY fechaInicioARCH DESC ";
 	    $resultado = mysqli_query( $conexion, $consulta ) or die ( "Algo ha ido mal en la consulta a la base de datos");
         $res = array();
         while ($columna = mysqli_fetch_array( $resultado )){
@@ -259,6 +259,43 @@
         }
         mysqli_close( $conexion );
         return $res[0];
+    
+    }
+
+    function archivosCulminados($idpropietario){
+        include_once 'conectDB.php';
+        $conexion = conectarDB();
+        
+        //local
+        $consulta = "SELECT * FROM archivo WHERE culminado = '1' AND archivo.id_propietario = '$idpropietario'";
+	    $resultado = mysqli_query( $conexion, $consulta ) or die ( "Algo ha ido mal en la consulta a la base de datos");
+        $res = array();
+        while ($columna = mysqli_fetch_array( $resultado )){
+            $aux= array();
+            array_push($aux, $columna['idARCH'], $columna['tituloARCH'], $columna['descARCH'] );
+            array_push($res, $aux);
+        }
+        
+        //compartida
+        $consulta = "SELECT * FROM archivo INNER JOIN colaboradores on archivo.idARCH = colaboradores.idARCH
+        WHERE culminado = '1' AND (NOT colaboradores.estadoCOLAB = 'RECHAZADO') AND  colaboradores.idSolicitante = '$idpropietario' ";
+        $resultado = mysqli_query( $conexion, $consulta ) or die ( "Algo ha ido mal en la consulta a la base de datos");
+        
+        while ($columna = mysqli_fetch_array( $resultado )){
+            $aux= array();
+            array_push($aux, $columna['idARCH'], $columna['tituloARCH'], $columna['descARCH'] );
+            array_push($res, $aux);
+        }
+        
+        
+        
+        
+        mysqli_close( $conexion );
+
+
+
+        return $res;
+    
     
     }
 
@@ -411,6 +448,18 @@
         mysqli_close( $conexion );
     }
 
+    function culminarArchivo($idArchivo){
+
+        include_once 'conectDB.php';
+        $conexion = conectarDB();
+        $sql = "UPDATE archivo SET culminado = '1' WHERE idARCH = '$idArchivo'";
+        if ($conexion->query($sql) === TRUE) {
+        } else {
+            echo "Error: " . $sql . "<br>" . $conexion->error;
+        }
+        mysqli_close( $conexion );
+    }
+
 
     function EliminarArchivo($idarchivo){
 
@@ -425,6 +474,20 @@
             echo "Error deleting record: " . $conexion->error;
         }
 
+        $conexion->close();
+    }
+
+    function eliminarHistorialDeArchivo($idarchivo){
+        include_once 'conectDB.php';
+        $conexion = conectarDB();
+        // sql to delete a record
+        $sql = "DELETE FROM historial WHERE historial.id_Archivo = '$idarchivo'";
+
+        if ($conexion->query($sql) === TRUE) {
+            echo "Record deleted successfully";
+        } else {
+            echo "Error deleting record: " . $conexion->error;
+        }
         $conexion->close();
     }
 

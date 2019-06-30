@@ -59,6 +59,14 @@
                     </form>        
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <form action="culminar.php" method="POST" id='miFormulario1'>
+                        <input type="text" value="<?php echo $_POST['idArch'];?>" name="id_Arch" id="id_Arch" hidden>
+                        <input class="btn btn-block" type="submit" value="Version Final">
+                    </form>        
+                </td>
+            </tr>
         
             <tr>
                 <td>
@@ -265,6 +273,16 @@ $historial = consultaHistorialArchivo($_POST['idArch']);
          form.addEventListener('submit', function(event) {
            // si es false entonces que no haga el submit
            if (!confirm('Realmente desea eliminar?')) {
+             event.preventDefault();
+           }
+         }, false);
+       })();
+
+       (function() {
+         var form = document.getElementById('miFormulario1');
+         form.addEventListener('submit', function(event) {
+           // si es false entonces que no haga el submit
+           if (!confirm('Realmente dar por concluido este Archivo?')) {
              event.preventDefault();
            }
          }, false);
