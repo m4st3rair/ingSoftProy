@@ -20,15 +20,7 @@ body{
   background-image: url(https://images8.alphacoders.com/687/687394.png);
 }
 
-
-
-
-
-
-
 </style>
-
-
 
 </head>
 <body>

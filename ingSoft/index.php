@@ -1,6 +1,4 @@
 
-
-
 <?php
     include_once ("sesiones.php");
     include_once 'consultas.php';
@@ -21,7 +19,6 @@
             //$malCorrreo="Listo ahora al menu papu";
             $usrS->create_Session($usuario[2], $usuario[1], $usuario[0]);
             include_once 'pantallaInicio.php';
-            
         }
         
         //echo "Hay que validar datos";
